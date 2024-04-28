@@ -1,0 +1,122 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+           <meta name="viewport" content="width=device-width, initial-scale=1">
+           <title>Homepage</title>
+           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+           <link href="personal_style.css">
+           <style>
+               body {
+                   background-color: rgb(33, 68, 79);
+               }
+               label{
+                   color: white;
+               }
+               p {
+                 color: white;
+               }
+           </style>
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="homepage.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="Gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="Commissions.html">Commissions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="About.html">About</a>
+                    </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+              </div>
+            </div>
+        </nav>
+        <div class="container-md">
+            <p>
+                Embark on a personalized artistic journey by commissioning miniature paintings with me. I offer a range of services for average miniatures, figurines, busts, and dioramas. The three detail levels include tabletop, advanced, and master class, catering to various preferences and budgets.
+
+                For those seeking an affordable yet quality option, the average miniature painting service ensures attention to detail without compromising cost. Ideal for tabletop gaming and small collectibles, each piece receives dedicated craftsmanship.
+
+                Elevate your collection with the advanced level, featuring enhanced details, vibrant colors, and nuanced techniques. This service caters to collectors with a discerning eye for intricate work on figurines and busts.
+
+                For the pinnacle of artistry, the master class level offers museum-quality pieces through advanced techniques, intricate shading, and a profound understanding of composition, especially for dioramas. Commission with me to bring your creative visions to life with passion, expertise, and a commitment to delivering custom miniature artworks that reflect your unique taste and preferences.
+            </p>
+        </div>
+        <div class="container-sm">
+            <form id="commissionForm">
+                <label for="menu1">Type of commission:</label><br>
+                <select id="menu1" name="type">
+                    <option value="Miniature">Miniature</option>
+                    <option value="Figurine">Figurine</option>
+                    <option value="Bust">Bust</option>
+                    <option value="Diorama">Diorama</option>
+                </select><br>
+                <label for="menu2">Level of Detail:</label><br>
+                <select id="menu2" name="detail">
+                    <option value="Tabletop">Tabletop</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="Masterclass">Masterclass</option>
+                </select><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <script>
+            document.getElementById("commissionForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent the default form submission
+            
+                // Get form data
+                var formData = new FormData(this);
+            
+                // Convert form data to object
+                var formObject = {};
+                formData.forEach(function(value, key){
+                    formObject[key] = value;
+                });
+            
+                // Calculate cost based on commission type and level of detail
+                var commissionType = formObject["type"];
+                var commissionDetail = formObject["detail"];
+                var commissionCost = calculateCost(commissionType, commissionDetail);
+            
+                // Add cost to the form data object
+                formObject["cost"] = commissionCost;
+            
+                // Convert object to JSON string
+                var jsonData = JSON.stringify(formObject);
+            
+                // Store form data in sessionStorage (temporarily)
+                sessionStorage.setItem("formData", jsonData);
+            
+                // Redirect to submit.html
+                window.location.href = "Receipt.html";
+            });
+            function calculateCost(type, detail) {
+                var cost = {
+                    Miniature: { Tabletop: 50, Advanced: 100, Masterclass: 200 },
+                    Figurine: { Tabletop: 75, Advanced: 150, Masterclass: 300 },
+                    Bust: { Tabletop: 100, Advanced: 200, Masterclass: 400 },
+                    Diorama: { Tabletop: 150, Advanced: 300, Masterclass: 600 }
+                };
+
+                return cost[type][detail];
+            }
+        </script>
+          
+    </body>
+</html>
